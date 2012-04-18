@@ -3,21 +3,28 @@
 #include <math.h>
 using namespace std;
 
-vector< vector<double> > r(10000, vector<double>(10000));
-vector< vector<double> > plate (20, vector<double>(20, INT_MAX));
-
-
-
-int calculate(int n, int m) {
-    if (r[n][m] > 0) {
-        return r[n][m];
+void printResults(int pop, int letters, int numbers, int plates, int leftover) {
+    printf("Population:\t%d", pop);
+    printf("\nPattern:\t");
+    if(letters > 0){
+        if(letters == 1){
+            printf("%d Letter ", letters);
+        }
+        else {
+            printf("%d Letters ", letters);
+        }
     }
-    else{
-        double x = 0;
-        x = pow(10,n)*pow(26,m);
-        r[n][m] = x;
-        return x;
+    if(numbers > 0){
+        if(numbers == 1){
+            printf("%d Number", numbers);
+        }
+        else {
+            printf("%d Numbers", numbers);
+        }
     }
+    printf("\nTotal Plates:\t%d", plates);
+    printf("\nLeftover:\t%d\n", leftover);
+
 }
 
 /**
@@ -26,56 +33,29 @@ int calculate(int n, int m) {
 **/
 int memoizedPlate(int pop){
 
-    int tempM = 1000;
-    int tempN = 1000;
+    int tempM, tempN, leftover;
+    int min = INT_MAX;
+    double ans;
     
-    int m =0;
-    int n = 0;
-    for(m = 0; m < 10; m++){
-        printf("m: %d", m);
-        for(n=0; n < 10; n++){
-            double ans = calculate(n, m);
-            printf(" n: %d value: %g\n", n, ans);
-            if(ans >= pop){
-                printf("ans: %g", ans);
+    for(int m = 0; m < 10; m++){
+        for(int n=0; n < 10; n++){
+            ans = pow(10,n)*pow(26,m);
+            if(ans >= pop && ans < min){
+                min = ans;
                 tempM = m;
                 tempN = n;
-                plate[n][m] = (ans);
-            }
-        }
-    }
-    printf("How many times it iterated: m: %d and n %d\n", m,n);
-
-    // return smallest
-    int i, j, letters, numbers, leftover;
-    int min = plate[0][0];
-
-    for (i = 0; i < plate.size(); i++) {
-        for (j = 0; j < plate.size(); j++) {
-            if (plate[i][j] < min) {
-                min = plate[i][j];
-                numbers = i;
-                letters = j;
+                leftover = min - pop;
             }
         }
     }
 
-    leftover = min - pop;
-
-    printf("Population:\t %d\nPattern:\t %d Letters %d Numbers\nTotal Plates:\t %d\nLeftover:\t %d\n",
-            pop,
-            letters,
-            numbers,
-            min,
-            leftover);
-
+    printResults(pop, tempM, tempN, min, leftover);
 }
 
 
 
 /**
 * Main function that asks for an input Population
-*
 **/
 int main(){
 
