@@ -1,0 +1,12 @@
+Liquid layouts
+
+In HTML, desiging a webpage to have a "liquid layout" means that the contents of the site will stretch and contract as the user changes the size of their browser. This is achieved by using percentages instead of declaring fixed widths.
+
+Advantages:
+Web pages will fill the entire browser window, eliminating whitesapce. Just ask google plus about their whitespace issue.
+Content would adjust to smaller screen sizes. This is a great advantage for mobile users who do not have to scroll to the sides.
+
+Disavantages:
+Lines of text can become unreadable on wide displays.
+Also, if the screen is to narrow, the text then becomes squashed.
+Usually images overflow when the screen width is made smaller.
